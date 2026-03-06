@@ -1,58 +1,86 @@
-# Welcome to your Expo app 👋
+# CognitoSense
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile application for **dementia screening and cognitive risk assessment**. It combines questionnaires, cognitive games, and eye-tracking analysis to evaluate dementia risk.
 
-## Get started
+> **Disclaimer:** Results are preliminary. Users should consult healthcare professionals for accurate diagnosis.
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+- **Questionnaire Assessment** — Multi-section questionnaire evaluating cognitive and health metrics
+- **Cognitive Games** — Memory Dialer, Shopping List Recall, Laundry Sorter, Money Manager
+- **Eye Tracking Analysis** — Camera-based eye tracking to detect cognitive patterns
+- **Risk Score Visualization** — Animated display categorizing risk as Low, Moderate, High, or Very High
+- **Multi-language Support** — English, Spanish, Hindi, Bengali, Tamil, Telugu, Marathi
 
-2. Configure .env
+## Tech Stack
 
-   Copy the .env.example to .env or create a .env file in root directory and paste the contents form .env.example file and fill  the feilds.
+- **Expo** ~54.0 with React Native 0.81 and React 19
+- **Expo Router** v6 (file-based routing)
+- **TypeScript**
+- **React Native Reanimated** for animations
+- **AsyncStorage** for local persistence
+- **Axios** for API communication
 
-   ```bash
-   API_URL = https://<your api url>/
-   ```
+## Getting Started
 
-3. Start the app
+### Prerequisites
 
-   ```bash
-   npx expo start
-   ```
+- Node.js 20+
+- npm
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Install dependencies
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Configure environment
 
-## Learn more
+Copy `.env.example` to `.env` and fill in the values:
 
-To learn more about developing your project with Expo, look at the following resources:
+```env
+API_URL=https://<your-api-url>/
+EXPO_PUBLIC_API_URL=https://<your-api-url>/
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 3. Start the app
 
-## Join the community
+```bash
+npx expo start
+```
 
-Join our community of developers creating universal apps.
+Then open the app in:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo Go](https://expo.dev/go) (quick preview)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Development build](https://docs.expo.dev/develop/development-builds/introduction/)
+
+## Docker (Web)
+
+Build and serve the Expo web export:
+
+```bash
+docker build --build-arg EXPO_PUBLIC_API_URL=https://api.cognitosense.in/ -t cognitosense .
+docker run -p 3000:3000 cognitosense
+```
+
+The web app will be available at `http://localhost:3000`.
+
+## Project Structure
+
+```
+app/                  # Screens (file-based routing)
+├── (tabs)/           # Tab navigation (Home, Explore)
+├── games/            # Cognitive game screens
+├── questionnaire/    # Assessment questionnaire
+├── register.tsx      # User registration
+├── access.tsx        # Dashboard with test options
+├── eye-test.tsx      # Eye tracking test
+└── result.tsx        # Risk score results
+components/           # Reusable UI components
+constants/            # Theme configuration
+context/              # AuthContext, LanguageContext
+hooks/                # Custom hooks
+assets/               # Images, eye test HTML
+```
